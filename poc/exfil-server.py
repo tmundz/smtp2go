@@ -8,7 +8,7 @@ Run: python3 exfil-server.py
 from http.server import BaseHTTPRequestHandler, HTTPServer
 import json, datetime, sys
 
-PORT = 1337
+PORT = 8080
 
 class ExfilHandler(BaseHTTPRequestHandler):
     def log_message(self, format, *args):

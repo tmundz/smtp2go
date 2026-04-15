@@ -275,6 +275,12 @@ API endpoints readable cross-origin from Hotjar:
 - [x] Test: does `Origin: http://evil.com` get reflected? (Would indicate reflection not hardcoded)
 - [ ] Confirm CSRF_key appears in Referer sent to Hotjar (WCP-001 chain)
 
+### PoC Status
+End-to-end PoC confirmed working. `poc/wcp-006-cors.html` served from `http://insights.hotjar.com`,
+exfil received by Python server on port 8080. Confirmed in Firefox with SameSite enforcement disabled
+(`network.cookie.sameSite.laxByDefault=false`, `network.cookie.cookieBehavior=0`).
+See `analysis/wcp-006-confirmed.md` for full write-up.
+
 ### Result
 ✅ **Confirmed.** Live testing on 2026-04-14:
 

