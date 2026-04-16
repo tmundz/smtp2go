@@ -281,8 +281,20 @@ exfil received by Python server on port 8080. Confirmed in Firefox with SameSite
 (`network.cookie.sameSite.laxByDefault=false`, `network.cookie.cookieBehavior=0`).
 See `analysis/wcp-006-confirmed.md` for full write-up.
 
+### Scope Ruling — 2026-04-15
+❌ **NOT EXPLOITABLE WITHIN PROGRAM SCOPE.**
+
+Exploitation requires one of:
+- SameSite=Lax disabled in browser → "Outdated browsers" rule (OOS)
+- MITM on `http://insights.hotjar.com` → explicitly OOS
+- XSS on third-party `insights.hotjar.com` → separate program, not smtp2go scope
+
+Additionally: `http://insights.hotjar.com` redirects 301 to `https://` via CloudFront HSTS, meaning the `http://` ACAO can never be triggered by a real browser request without MITM. The CORS header is effectively dead configuration. No subdomain takeover possible (resolves to active CloudFront).
+
+**Confirmed as misconfiguration but not reportable.** The finding is retained for chain reference — any XSS found on smtp2go (same-site) would bypass SameSite and could leverage the full API surface documented here.
+
 ### Result
-✅ **Confirmed.** Live testing on 2026-04-14:
+✅ **Technically confirmed** (data extracted via curl) but ❌ **out of scope for reporting.** Live testing on 2026-04-14:
 
 ```
 curl -si 'https://app-us.smtp2go.com/api/dashboard/main/' \

@@ -2,39 +2,20 @@
 
 ---
 
-## [XSS-001] Stored XSS — `$(".username").html(data.username)` on Dashboard
+## [XSS-001] ❌ Sunk — `$(".username").html(data.username)` Not Exploitable
 
 | Field | Value |
 |---|---|
 | **Source** | `static/js/functions.js:529` |
-| **Type** | Stored (via login API response) |
-| **Sink** | jQuery `.html()` on `.username` element — every authenticated page |
-| **Input vector** | Username field stored at account registration/profile |
-| **Payload** | `<img src=x onerror=alert(document.domain)>` |
-| **Severity estimate** | High if confirmed — fires on all authenticated users' dashboard views |
-| **Test status** | ⬜ Untested |
+| **Test status** | ❌ Not exploitable — `data.username` is the account email address |
 
-### Evidence
-```js
-// functions.js:528-529
-if (data.username != null) {
-  $(".username").html(data.username);   // ← .html() not .text()
-}
-```
-`data.username` comes from the login/session API response.
-If the server stores the username as-is and returns it without HTML-encoding,
-any HTML in the username renders in the DOM.
+### Why closed
+Confirmed from CSV: `data.username` returned by API endpoints (e.g. `/api/reports/data-exports/`)
+is the login email (`0xcaphe+roy@wearehackerone.com`). Email addresses are server-validated
+format — cannot contain HTML tags. The jQuery `.html()` call exists but is safe in practice
+because the server controls the email format.
 
-### Test plan
-- [ ] Register or update account with username: `<img src=x onerror=alert(document.domain)>`
-- [ ] Log in — does the dashboard fire the alert?
-- [ ] Try attribute injection: `" onmouseover="alert(1)` as username
-- [ ] Try SVG payload: `<svg onload=alert(1)>`
-- [ ] Check if server sanitizes on input (registration POST) vs. on output (login response)
-- [ ] If CSP present, try CSP bypass (check response headers first)
-
-### Result
-_Populate after testing._
+The real injection surface is XSS-006 (inline JS `userFullName` — separate entry below).
 
 ---
 
@@ -181,3 +162,102 @@ unescaped within the HTML response, it becomes DOM XSS.
 
 ### Result
 _Populate after testing._
+
+---
+
+## [XSS-006] ❌ Not Exploitable — `userFullName` HTML-Encoded in Script Context
+
+| Field | Value |
+|---|---|
+| **Source** | Every authenticated page — 19+ pages confirmed |
+| **Type** | Stored JS injection — server renders fullname directly into `<script>` block |
+| **Sink** | Inline `<script>` tag — `var userFullName = '<FULLNAME>';` |
+| **Input vector** | Account fullname field (set via `PUT /api/settings/team/?action=update_member`) |
+| **Payload tested** | `'; alert(document.domain); //` |
+| **Severity estimate** | N/A — mitigated |
+| **Test status** | ❌ Not exploitable — server HTML-encodes `'` as `&#39;` in script context |
+
+### Evidence
+
+Every authenticated page contains this server-rendered inline script:
+```javascript
+// dashboard/main/(index).html:1389-1391 — same pattern on all 19 pages
+zE(function(){
+    var userIdentifier = '1010395';
+    var userFullName = 'roy kent';;   // server renders fullname into single-quoted string
+    var userMail = '0xcaphe+roy@wearehackerone.com';
+    zE('webWidget', 'prefill', { name: { value: userFullName, readOnly: true }, ...
+```
+
+Double-semicolon (`'roy kent';;`) is a Django/Jinja template artifact. No JS-encoding applied. Value is single-quoted — a single-quote in fullname breaks out of the string.
+
+**All 19 authenticated pages**: dashboard/main, reports/*, email-testing, sending/*, settings/*, account/*
+
+### Exploit Payload
+
+If fullname = `'; alert(document.domain); //`, inline script becomes:
+```javascript
+var userFullName = ''; alert(document.domain); //';;
+```
+
+### Test plan
+- [ ] Get edit_token: `POST /api/settings/team/?action=get_edit_token&CSRF_key=<csrf>` with `{"password": "<pwd>"}`
+- [ ] Update fullname: `POST /api/settings/team/?action=update_member&CSRF_key=<csrf>` with `{"edit_token": "<tok>", "old_username": "email", "new_username": "email", "fullname": "'; alert(document.domain); //"}`
+- [ ] Load any authenticated page — does JS execute?
+- [ ] Check CSP headers on dashboard — does `script-src` allow inline?
+- [ ] Escalation: admin updates victim team member fullname → XSS on victim's every page load
+
+### Attack Chain (High severity)
+
+1. Admin (or account owner) sets another team member's fullname to payload via `update_member`
+2. Every page the victim loads fires the payload — no interaction needed
+3. Alternately: chained with IDOR-001 (cross-tenant subaccount access) to hit accounts outside your own team
+
+### Result
+
+**NOT EXPLOITABLE — confirmed 2026-04-15 via browser test.**
+
+User manually set fullname to `'; alert(document.domain); //` via the team settings UI.
+Full `GET /dashboard/main/` HTTP response confirmed server-side HTML encoding.
+
+**Evidence from live HTTP response:**
+
+HTML nav bar (expected encoding):
+```html
+<span class="account-name">&#39;; alert(document.domain); //</span>
+```
+
+Inline `<script>` block (the critical one):
+```javascript
+var userFullName = '&#39;; alert(document.domain); //';;
+```
+
+**Why this mitigates:**
+The `<script>` element content is parsed as "raw text" by the HTML parser — HTML entities
+are **not decoded** within `<script>` blocks. The JavaScript engine therefore receives the
+literal string `&#39;; alert(document.domain); //` — the `&#39;` is 5 characters
+(`&`, `#`, `3`, `9`, `;`), not a single quote. The payload never breaks out of the JS
+string. No code executes.
+
+**What was tested:**
+- Payload `'; alert(document.domain); //` set as fullname via browser UI
+- Full `GET /dashboard/main/` response inspected
+- Both HTML context (nav bar) and script context (inline `<script>`) confirmed `&#39;` encoding
+- No CSP was present on the page (confirmed earlier — irrelevant since encoding blocks it first)
+
+**Additional test — angle bracket injection (2026-04-15):**
+
+Payload `</span> <script> alert(document.domain);</script><span>` set as fullname via UI.
+Nav dropdown rendered:
+```html
+<span class="account-name">&lt;/span&gt; &lt;script&gt; alert(document.domain);&lt;/script&gt;&lt;span&gt;</span>
+```
+
+`<` and `>` are encoded as `&lt;` / `&gt;`. Tag injection fails — no element is created,
+no context escape. The full set of HTML special characters is entity-encoded:
+`<` → `&lt;`, `>` → `&gt;`, `'` → `&#39;`.
+
+**Conclusion:** Django's template engine applies `|escape` or equivalent to all string
+interpolation, including inside `<script>` blocks. All HTML special characters are encoded.
+Both single-quote escape (JS context) and tag injection (HTML context) are fully mitigated.
+This vector is definitively closed — no further testing warranted.

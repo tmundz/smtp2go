@@ -1,0 +1,58 @@
+# CORS Origin Probe Wordlist
+# Replace TARGET with the actual target domain before use
+# ---
+
+# 1. Arbitrary origin reflection
+https://evil.com
+http://evil.com
+
+# 2. Null origin
+null
+
+# 3. Subdomain prefix (misconfigured startsWith / unescaped dot)
+https://TARGET.com.evil.com
+https://TARGET.com.attacker.com
+
+# 4. Suffix bypass (domain ends with target)
+https://evilTARGET.com
+https://notTARGET.com
+https://fakeTARGET.com
+
+# 5. HTTP downgrade
+http://TARGET.com
+http://www.TARGET.com
+
+# 6. Trusted subdomain probes
+https://sub.TARGET.com
+https://dev.TARGET.com
+https://staging.TARGET.com
+https://api.TARGET.com
+https://test.TARGET.com
+
+# 7. Trailing path / @ bypass
+https://TARGET.com/anything@evil.com
+https://TARGET.com@evil.com
+
+# 8. Special character — underscore (Chrome, Firefox, Safari)
+https://TARGET.com_.evil.com
+https://TARGET.com_evil.com
+
+# 9. Special character — brace (Safari only)
+https://TARGET.com{.evil.com
+
+# 10. Special character — space (Safari only)
+https://TARGET.com .evil.com
+
+# 11. Special character — misc (Safari only)
+https://TARGET.com&.evil.com
+https://TARGET.com,.evil.com
+https://TARGET.com!.evil.com
+https://TARGET.com$.evil.com
+https://TARGET.com^.evil.com
+https://TARGET.com*.evil.com
+https://TARGET.com`.evil.com
+https://TARGET.com~.evil.com
+https://TARGET.com|.evil.com
+
+# 12. Non-printable chars (URL-encoded, Safari only — use with NodeJS server)
+# %01 through %08, %0b, %0c, %0e, %0f, %10-%1f, %7f
