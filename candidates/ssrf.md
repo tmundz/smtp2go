@@ -405,3 +405,40 @@ _Populate after testing._
 
 ### Result
 _Populate after testing._
+
+---
+
+## [SSRF-004] Domain Registrar Lookup — action=registrar (UNDOCUMENTED)
+
+| Field | Value |
+|---|---|
+| **Source** | Account B session, new CSV 2026-04-16 |
+| **Endpoint** | `GET /api/settings/verified_senders/?action=registrar&domain=TARGET` |
+| **Key param** | `domain` — arbitrary string, server does WHOIS/registrar lookup |
+| **Response reflection** | ✅ Direct — returns `{"registrar":"ONE.COM"}` |
+| **Found in /end-points/** | ❌ NOT listed — undocumented endpoint |
+| **Severity if internal** | High |
+| **Test status** | ⬜ Untested |
+
+### Evidence
+```
+GET /api/settings/verified_senders/?action=registrar&CSRF_key=VA7x...&domain=wearehackerone.com
+→ {"status":"OK","results":{"registrar":"One.com"}}
+```
+
+Server performs a real-time lookup (WHOIS/DNS/third-party registrar API) based on `domain` param.
+
+### Test plan
+- [ ] `domain=127.0.0.1` — does server make HTTP/DNS request to localhost?
+- [ ] `domain=169.254.169.254` — cloud metadata
+- [ ] `domain=10.0.0.1` — internal network probe  
+- [ ] `domain=your.interactsh.com` — confirm server-side DNS/HTTP, observe source IP
+- [ ] `domain=attacker.com.169.254.169.254.nip.io` — DNS rebinding bypass
+- [ ] `domain=XXXX.burpcollaborator.net` — blind SSRF detection
+- [ ] Check if lookup is DNS or HTTP — compare response times for non-existent domains
+
+### Why high priority
+This endpoint is NOT in the public API documentation (`/end-points/`). It takes raw user input and the server makes a network call. No validation of `domain` parameter was evidenced. The response is returned directly to the user, making this a full-read SSRF if exploitable.
+
+### Result
+_Populate after testing._

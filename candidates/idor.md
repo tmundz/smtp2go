@@ -388,3 +388,87 @@ Cookie name absent from all 238 application JS files — set server-side, consum
 
 ### Result
 _Populate after testing._
+
+---
+
+## [IDOR-002] Template Render — Cross-Account Read via user_template_id (NEW — paid account)
+
+| Field | Value |
+|---|---|
+| **Source** | New CSV 2026-04-16, Account A session |
+| **Method** | POST |
+| **Endpoint** | `/api/settings/templates/?action=render-text` |
+| **Object type** | `user_template_id` — integer |
+| **Object in traffic** | Account A's template: `1250783` |
+| **Severity estimate** | Medium — cross-account template content disclosure |
+| **Test status** | ⬜ Untested |
+
+### Context
+Account A created template `user_template_id=1250783`. The render-text endpoint renders the template and returns `rendered_text`. Test whether Account B's session can render Account A's template.
+
+Account B details (from new CSV):
+- member_id: `1015003`
+- CSRF key: `VA7xTimlfR3wN4BxB6pK2EyJjvWJCloNRNbvXPEhrdM`
+
+### Test plan
+- [ ] From Account B's session: `POST /api/settings/templates/?action=render-text` with `user_template_id=1250783`
+- [ ] If response contains Account A's template HTML → IDOR confirmed
+- [ ] Enumerate `user_template_id` ±10 from 1250783
+- [ ] Try `user_template_id=0`, `user_template_id=-1`
+
+### Result
+_Populate after testing._
+
+---
+
+## [IDOR-003] Domain Objects — Cross-Account via Sequential domain.id (NEW — paid account)
+
+| Field | Value |
+|---|---|
+| **Source** | New CSV 2026-04-16, both account sessions |
+| **Object type** | domain ID — integer |
+| **Account A domain** | id=`118702`, member_id=`1010395` |
+| **Account B domain** | id=`118689`, member_id=`1015003` |
+| **Delta** | 13 apart — sequential IDs |
+| **Severity estimate** | High — cross-account domain management (delete/modify) |
+| **Test status** | ⬜ Untested |
+
+### Context
+Both accounts have a domain with `id` returned in the verify response. Operations on domains use the domain name (`domain=wearehackerone.com`), not the ID. However, there may be ID-based endpoints. Test whether the name-based operations enforce ownership when the domain name is the same.
+
+The confound: both accounts added the same domain `wearehackerone.com`. The server must differentiate by member_id/session. Test by using a domain name only Account B owns (add a unique domain to each account).
+
+### Test plan
+- [ ] Add unique domain to Account A (e.g., `test-accounta.wearehackerone.com`)  
+- [ ] From Account B's session: `DELETE /api/settings/verified_senders/` with `domain=test-accounta.wearehackerone.com`
+- [ ] If successful delete → IDOR confirmed
+- [ ] Try via any endpoint accepting integer domain_id if discoverable
+- [ ] Test: `GET /api/settings/verified_senders/?action=&domain_id=118702` from Account B session
+
+### Result
+_Populate after testing._
+
+---
+
+## [IDOR-004] Sender Records — esl_rpath_subdomain Cross-Account Injection
+
+| Field | Value |
+|---|---|
+| **Source** | New CSV 2026-04-16 |
+| **Endpoint** | `POST /api/settings/verified_senders/?action=validate-subdomains` |
+| **Key params** | `entri_rpath_subdomain`, `entri_tracker_subdomain` |
+| **Account A value** | `em1010395`, `s1010395._domainkey` |
+| **Account B value** | `em1015003`, `s1015003._domainkey` |
+| **Severity estimate** | Medium — subdomain routing manipulation |
+| **Test status** | ⬜ Untested |
+
+### Context
+The `validate-subdomains` action takes user-controlled subdomain prefix values. Account A uses `em1010395`, Account B uses `em1015003`. Test whether Account A can set its subdomain to `em1015003` (Account B's routing prefix), effectively hijacking Account B's email delivery routing.
+
+### Test plan
+- [ ] From Account A: `POST validate-subdomains` with `entri_rpath_subdomain=em1015003`
+- [ ] Does server accept or reject? Does it check ownership of the prefix?
+- [ ] If accepted: what DNS records would be created? Who controls the subdomain?
+
+### Result
+_Populate after testing._
