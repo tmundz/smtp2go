@@ -1,0 +1,20 @@
+- generic [active] [ref=e1]:
+  - link [ref=e3] [cursor=pointer]:
+    - /url: https://www.smtp2go.com/
+    - img [ref=e4]
+  - generic [ref=e7]:
+    - heading "Check your email for a sign in link" [level=4] [ref=e8]
+    - paragraph [ref=e9]:
+      - text: To keep your account secure, we've sent an email to
+      - strong [ref=e10]: 0xcaphe+ted@wearehackerone.com
+      - text: to confirm it's really you. Please verify the login device by clicking the link in the email.
+    - button "Resend email" [ref=e11] [cursor=pointer]
+    - button "Switch user" [ref=e12] [cursor=pointer]
+  - paragraph [ref=e13]:
+    - text: 2026 © SMTP2GO
+    - link "Contact" [ref=e14] [cursor=pointer]:
+      - /url: https://www.smtp2go.com/contact
+    - link "Privacy" [ref=e15] [cursor=pointer]:
+      - /url: https://www.smtp2go.com/privacy
+    - link "Terms" [ref=e16] [cursor=pointer]:
+      - /url: https://www.smtp2go.com/terms

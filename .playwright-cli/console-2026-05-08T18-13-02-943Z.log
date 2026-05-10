@@ -1,0 +1,80 @@
+[   38860ms] [LOG] FORM_FIELDS:["authentication_code=","requested_endpoint=myaccount_dashboard_main","requested_args={\"login_id\": \".eJwNzsuWQzAAANB_6dZCI2c8lsFoaBnVxInuTFsE8ahX6utn7hfcwxBVpz5O8hsWb","use_auth=app"] @ :6
+[   39097ms] [LOG] FETCH_STATUS:200 @ :23
+[   39097ms] [LOG] FETCH_URL:https://app-us.smtp2go.com/login/2fa/ @ :24
+[   39097ms] [LOG] FETCH_BODY:<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <title>SMTP2GO - Login 2FA</title>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta content="width=device-width, initial-scale=1" name="viewport"/>
+  <meta content="SMTP2GO" name="description"/>
+  <meta content="SMTP2GO.com" name="author"/>
+
+  <link href="https://www.smtp2go.com/wp-content/themes/smtp2go/css/screen.css" rel="stylesheet" type="text/css">
+  <link href="/static/assets/admin/pages/css/new-login.css?v=1&amp;version=1778227235" rel="stylesheet" type="text/css"/>
+  <link rel="shortcut icon" href="/static/favicon.ico?version=1778227235"/>
+  <style>
+
+  .cta.cta-bgstatic:after,
+  .cta.cta-bgstatic:before {
+      display: none;
+  }
+
+  </style>
+</head>
+<body class="login cta cta-bgstatic cta-c login-2fa">
+<div class="login-content">
+	<a href="https://www.smtp2go.com/" class="logo">
+		<img src="https://www.smtp2go.com/wp-content/themes/smtp2go/images/logo-alt.svg" alt="" width="200" height="100"/>
+	</a>
+</div>
+<div class="content" style="display:none;">
+    <div class="menu-toggler sidebar-toggler"></div>
+    <!-- END SIDEBAR TOGGLER BUTTON -->
+
+    <!-- BEGIN 2FA FORM -->
+	<form id="login-2fa" name="2fa" method="post" action="/login/2fa/">
+    <h1 class="heading">Verify your log in</h1>
+    
+        <p class="sms-verification-message">Enter the verification code sent to .<br>
+          This code is valid for 10 minutes.
+        </p>
+        
+    
+
+    <div class="form-group">
+      <input class="form-control placeholder-no-fix" type="text" autocomplete="off" placeholder="Verification code" name="authentication_code" id="authentication_code" value=""  tabindex="1" autofocus/>
+      
+          <label class="error" for="authentication_code">Code incorrect</label>
+      
+    </div>
+
+    <input type="hidden" name="requested_endpoint" value="myaccount_dashboard_main">
+    <input type="hidden" name="requested_args" value="{}">
+    <input type="hidden" name="use_auth" value="email">
+    <div class="form-actions">
+      <input id="2fa-submit" type="submit" class="btn blue pull-left" value="Log in →" tabindex="2">
+    </div>
+    <div class="remember-2fa-permanent-form">
+      <span class="remember-2fa-permanent-checkbox"></span>
+      <input id="remember-2fa-permanent" type="checkbox" name="remember_2fa_permanent">
+      <span class="remember-2fa-permanent-text">Don't ask again on this device</span>
+    </div>
+	</form>
+  
+    <form method="post" id="resend-sms" action="/login/2fa/">
+      <input type="hidden" name="resend_sms" value="true">
+      <input type="hidden" name="requested_endpoint" value="myaccount_dashboard_main">
+      <input type="hidden" name="requested_args" value="{}">
+      <p class="controls-2fa resend-code"><a href="javascript:$('#resend-sms').submit();">Resend code</a></p>
+    </form>
+    
+  
+	<!-- END 2FA FORM -->
+</div>
+<p class="login-footer">
+  <a href="http://www.smtp2go.com/privacy">Privacy policy</a>
+  <span class="copyright">2026 &copy; SMTP2GO.</span>
+</p>
+
+<script @ :25

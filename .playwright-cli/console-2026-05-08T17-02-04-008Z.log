@@ -1,0 +1,2 @@
+[     713ms] [VERBOSE] [DOM] Input elements should have autocomplete attributes (suggested: "new-password"): (More info: https://goo.gl/9p2vKq) %o @ https://app-us.smtp2go.com/account/2fa/:0
+[     802ms] [WARNING] An iframe which has both allow-scripts and allow-same-origin for its sandbox attribute can escape its sandboxing. @ https://cdn.announcekit.app/widget-v2.js:0

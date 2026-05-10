@@ -1,0 +1,3 @@
+[    1390ms] [WARNING] An iframe which has both allow-scripts and allow-same-origin for its sandbox attribute can escape its sandboxing. @ https://cdn.announcekit.app/widget-v2.js:0
+[    1651ms] [VERBOSE] [DOM] Input elements should have autocomplete attributes (suggested: "new-password"): (More info: https://goo.gl/9p2vKq) %o @ https://app-us.smtp2go.com/account/2fa/:0
+[    5609ms] [WARNING] The resource https://app-us.smtp2go.com/static/smtp2go_assets/splash-2fa@2x.png was preloaded using link preload but not used within a few seconds from the window's load event. Please make sure it has an appropriate `as` value and it is preloaded intentionally. @ https://app-us.smtp2go.com/account/2fa/:0

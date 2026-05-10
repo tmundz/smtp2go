@@ -1,0 +1,8 @@
+- generic [active] [ref=e1]:
+  - paragraph [ref=e3]: message text
+  - link [ref=e5] [cursor=pointer]:
+    - /url: https://www.smtp2go.com/
+  - generic [ref=e6]:
+    - textbox "New password" [ref=e9]
+    - textbox "Confirm new password" [ref=e12]
+    - button "Change password" [ref=e14] [cursor=pointer]

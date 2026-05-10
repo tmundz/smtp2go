@@ -1,0 +1,195 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e2]:
+    - generic:
+      - link "logo" [ref=e4] [cursor=pointer]:
+        - /url: /dashboard/main/
+        - img "logo" [ref=e5]
+      - list [ref=e7]:
+        - listitem [ref=e8]:
+          - link "Subaccounts" [ref=e9] [cursor=pointer]:
+            - /url: "#"
+            - generic [ref=e11]: Subaccounts
+          - list:
+            - listitem:
+              - generic: "Switch to:"
+              - generic:
+                - list:
+                  - listitem:
+                    - link "testing":
+                      - /url: javascript:void(0)
+                      - text: testing
+            - listitem:
+              - link "Manage subaccounts":
+                - /url: /settings/subaccounts/
+        - listitem [ref=e12]:
+          - link "Support" [ref=e13] [cursor=pointer]:
+            - /url: "#"
+            - text: Support
+          - list:
+            - listitem: Customer support
+            - listitem:
+              - link "Support Desk":
+                - /url: /support-zdsso/
+            - listitem:
+              - link "Setup Guides":
+                - /url: https://www.smtp2go.com/setup/
+            - listitem:
+              - link "Contact Numbers":
+                - /url: https://www.smtp2go.com/contact/#contact-numbers
+            - listitem:
+              - button "Latest updates"
+            - listitem:
+              - generic:
+                - generic: Generate Support PIN
+                - text: Generating Support PIN..
+              - generic: "00000"
+            - listitem:
+              - generic: For account verification in customer support discussions.
+        - listitem [ref=e15]:
+          - link "roy kent" [ref=e16] [cursor=pointer]:
+            - /url: "#"
+            - generic [ref=e18]: roy kent
+          - list:
+            - listitem:
+              - generic: roy kent
+              - generic: 0xcaphe+roy@wearehackerone.com
+            - listitem:
+              - list:
+                - listitem:
+                  - link "Log Out":
+                    - /url: "#"
+                    - text: Log Out
+  - generic [ref=e19]:
+    - list [ref=e21]:
+      - listitem [ref=e22]:
+        - link "Dashboard" [ref=e23] [cursor=pointer]:
+          - /url: /dashboard/main/
+          - text: Dashboard
+      - listitem [ref=e25]:
+        - link "Reports " [ref=e26] [cursor=pointer]:
+          - /url: /reports/summary/
+          - text: Reports
+          - generic: 
+      - listitem [ref=e28]:
+        - link "Sending " [ref=e29] [cursor=pointer]:
+          - /url: /sending/
+          - text: Sending
+          - generic: 
+      - listitem [ref=e31]:
+        - link "Settings " [ref=e32] [cursor=pointer]:
+          - /url: /settings/authentication/
+          - text: Settings
+          - generic: 
+      - listitem [ref=e34]:
+        - link "Account " [ref=e35] [cursor=pointer]:
+          - /url: /account/
+          - text: Account
+          - generic: 
+        - list [ref=e37]:
+          - listitem [ref=e38]:
+            - link "Edit Team" [ref=e39] [cursor=pointer]:
+              - /url: /account/team/
+          - listitem [ref=e40]:
+            - link "Two-Factor Auth" [ref=e41] [cursor=pointer]:
+              - /url: /account/2fa/
+      - listitem
+    - generic [ref=e43]:
+      - paragraph [ref=e47]:
+        - text: You need to verify one or more of your Verified Senders. See which of your sender email addresses are
+        - link "currently unverified" [ref=e48] [cursor=pointer]:
+          - /url: /reports/summary/?filter=sender_email&date_filter=30days
+        - text: .
+      - generic [ref=e50]:   
+      - generic [ref=e81]:
+        - generic:
+          - generic:
+            - generic: ×
+          - generic:
+            - generic: ×
+        - generic:
+          - banner [ref=e124]:
+            - heading "Add App Authentication" [level=3] [ref=e125]:
+              - button [ref=e126] [cursor=pointer]
+              - text: Add App Authentication
+            - paragraph [ref=e128]: Use an authentication app of your choice to login.
+          - generic [ref=e130]:
+            - generic [ref=e131]:
+              - generic [ref=e132]:
+                - heading "Download an authentication app to your mobile device or computer" [level=4] [ref=e134]
+                - generic [ref=e136]:
+                  - strong [ref=e137]: "Note:"
+                  - text: We recommend Authy for 2FA on mobile and desktop devices. Download Authy for free for your
+                  - link "iOS" [ref=e138] [cursor=pointer]:
+                    - /url: https://itunes.apple.com/us/app/authy/id494168017
+                  - text: or
+                  - link "Android" [ref=e139] [cursor=pointer]:
+                    - /url: https://play.google.com/store/apps/details?id=com.authy.authy
+                  - text: devices, or download a similar 2FA app.
+              - generic [ref=e140]:
+                - heading "Scan this barcode using your app" [level=4] [ref=e142]
+                - generic [ref=e143]:
+                  - generic "otpauth://totp/0xcaphe%2Broy%40wearehackerone.com?secret=LOAOHN3C2OYNP36QQPI4ZM6OSUQYZLX5&issuer=SMTP2GO" [ref=e146]:
+                    - img [ref=e147]
+                  - paragraph [ref=e148]: "Alternatively, manually enter this code:"
+                  - code [ref=e149]: LOAOHN3C2OYNP36QQPI4ZM6OSUQYZLX5
+              - generic [ref=e150]:
+                - heading "Enter the security code sent to your app" [level=4] [ref=e152]
+                - textbox [ref=e154]
+            - generic [ref=e157]:
+              - button "Verify code" [ref=e158] [cursor=pointer]
+              - button "Cancel" [ref=e159] [cursor=pointer]
+        - generic:
+          - button "×"
+          - banner:
+            - heading "Exit without saving?" [level=4]
+          - generic:
+            - paragraph: Closing the editor without saving will remove all of your changes since the last save.
+          - generic:
+            - button "Continue editing"
+            - button "Exit without saving"
+        - generic:
+          - generic:
+            - button "×"
+            - banner:
+              - heading "Security check" [level=4]
+            - generic:
+              - textbox
+          - generic:
+            - button "Disable 2FA"
+            - button "Cancel"
+      - generic [ref=e63] [cursor=pointer]:
+        - link:
+          - /url: javascript:void(0);
+          - img [ref=e64]
+    - generic [ref=e66]:
+      - generic [ref=e67]:
+        - text: 2026 © SMTP2GO.
+        - generic [ref=e68]: Hosted in the USA
+        - link "Share feedback on this page" [ref=e69] [cursor=pointer]:
+          - /url: https://smtp2go-feedback.paperform.co?m=1010395&p=/account/2fa/
+      - list [ref=e71]:
+        - listitem [ref=e72]:
+          - link "Compliance Documents" [ref=e73] [cursor=pointer]:
+            - /url: /compliance/
+        - listitem [ref=e74]:
+          - link "Privacy Policy" [ref=e75] [cursor=pointer]:
+            - /url: https://www.smtp2go.com/privacy
+        - listitem [ref=e76]:
+          - link "Terms of Service" [ref=e77] [cursor=pointer]:
+            - /url: https://www.smtp2go.com/terms
+        - listitem [ref=e78]:
+          - link "Status" [ref=e79] [cursor=pointer]:
+            - /url: https://smtp2gostatus.com
+  - iframe [ref=e80]:
+    - generic [ref=f41e2]:
+      - img [ref=f41e4]
+      - generic [ref=f41e11]:
+        - heading "Status embed installed correctly" [level=1] [ref=f41e12]:
+          - paragraph [ref=f41e13]: Status embed installed correctly
+        - generic [ref=f41e14]: This will be shown if an incident or maintenance is posted on your status page.
+        - link "View latest updates" [ref=f41e16] [cursor=pointer]:
+          - /url: https://smtp2gostatus.com?utm_source=embed
+      - button [ref=f41e18] [cursor=pointer]:
+        - img [ref=f41e19]
+  - generic:
+    - iframe

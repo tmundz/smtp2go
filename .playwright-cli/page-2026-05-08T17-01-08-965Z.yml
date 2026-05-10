@@ -1,0 +1,29 @@
+- generic [ref=e1]:
+  - link [ref=e4] [cursor=pointer]:
+    - /url: https://www.smtp2go.com/
+  - generic:
+    - generic [ref=e5]:
+      - textbox "Email Address" [ref=e7]
+      - textbox "Password" [ref=e9]
+      - button "Log in →" [ref=e11] [cursor=pointer]
+      - generic [ref=e12]:
+        - generic [ref=e13]: Remember me for a week
+        - link "Forgot password" [active] [ref=e15] [cursor=pointer]:
+          - /url: javascript:void(0);
+      - paragraph [ref=e16]:
+        - text: Don't have an account yet?
+        - link "Create one for free!" [ref=e17] [cursor=pointer]:
+          - /url: http://www.smtp2go.com/pricing
+    - generic [ref=e18]:
+      - paragraph [ref=e19]: Forgot your password? Enter your email below and we’ll send you a password reset email.
+      - textbox "Email" [ref=e21]
+      - button "Reset Password" [ref=e23] [cursor=pointer]
+      - paragraph [ref=e24]:
+        - text: Nevermind,
+        - link "I remembered it" [ref=e25] [cursor=pointer]:
+          - /url: javascript:void(0);
+        - text: .
+  - paragraph [ref=e26]:
+    - link "Privacy policy" [ref=e27] [cursor=pointer]:
+      - /url: http://www.smtp2go.com/privacy
+    - text: 2026 © SMTP2GO.

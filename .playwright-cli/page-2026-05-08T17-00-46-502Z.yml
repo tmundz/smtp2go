@@ -1,0 +1,285 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e2]:
+    - generic:
+      - link "logo" [ref=e4] [cursor=pointer]:
+        - /url: /dashboard/main/
+        - img "logo" [ref=e5]
+      - list [ref=e7]:
+        - listitem [ref=e8]:
+          - link "Subaccounts" [ref=e9] [cursor=pointer]:
+            - /url: "#"
+            - generic [ref=e11]: Subaccounts
+          - list:
+            - listitem:
+              - generic: "Switch to:"
+              - generic:
+                - list:
+                  - listitem:
+                    - link "testing":
+                      - /url: javascript:void(0)
+                      - text: testing
+            - listitem:
+              - link "Manage subaccounts":
+                - /url: /settings/subaccounts/
+        - listitem [ref=e12]:
+          - link "Support" [ref=e13] [cursor=pointer]:
+            - /url: "#"
+            - text: Support
+          - list:
+            - listitem: Customer support
+            - listitem:
+              - link "Support Desk":
+                - /url: /support-zdsso/
+            - listitem:
+              - link "Setup Guides":
+                - /url: https://www.smtp2go.com/setup/
+            - listitem:
+              - link "Contact Numbers":
+                - /url: https://www.smtp2go.com/contact/#contact-numbers
+            - listitem:
+              - button "Latest updates"
+            - listitem:
+              - generic:
+                - generic: Generate Support PIN
+                - text: Generating Support PIN..
+              - generic: "00000"
+            - listitem:
+              - generic: For account verification in customer support discussions.
+        - listitem [ref=e15]:
+          - link "roy kent" [ref=e16] [cursor=pointer]:
+            - /url: "#"
+            - generic [ref=e18]: roy kent
+          - list:
+            - listitem:
+              - generic: roy kent
+              - generic: 0xcaphe+roy@wearehackerone.com
+            - listitem:
+              - list:
+                - listitem:
+                  - link "Log Out":
+                    - /url: "#"
+                    - text: Log Out
+  - generic [ref=e19]:
+    - list [ref=e21]:
+      - listitem [ref=e22]:
+        - link "Dashboard" [ref=e23] [cursor=pointer]:
+          - /url: /dashboard/main/
+          - text: Dashboard
+      - listitem [ref=e25]:
+        - link "Reports " [ref=e26] [cursor=pointer]:
+          - /url: /reports/summary/
+          - text: Reports
+          - generic: 
+        - list [ref=e28]:
+          - listitem [ref=e29]:
+            - link "Summary" [ref=e30] [cursor=pointer]:
+              - /url: /reports/summary/
+          - listitem [ref=e31]:
+            - link "Activity" [ref=e32] [cursor=pointer]:
+              - /url: /reports/activity/
+          - listitem [ref=e33]:
+            - link "Charts" [ref=e34] [cursor=pointer]:
+              - /url: /reports/charts/
+          - listitem [ref=e35]:
+            - link "Archives" [ref=e36] [cursor=pointer]:
+              - /url: /reports/archive/
+          - listitem [ref=e37]:
+            - link "Email Testing" [ref=e38] [cursor=pointer]:
+              - /url: /email-testing/
+          - listitem [ref=e39]:
+            - link "Suppressions" [ref=e40] [cursor=pointer]:
+              - /url: /reports/suppressions/
+          - listitem [ref=e41]:
+            - link "Data Exports" [ref=e42] [cursor=pointer]:
+              - /url: /reports/data-exports/
+          - listitem [ref=e43]:
+            - link "SMS Messaging" [ref=e44] [cursor=pointer]:
+              - /url: /reports/sms/
+      - listitem [ref=e45]:
+        - link "Sending " [ref=e46] [cursor=pointer]:
+          - /url: /sending/
+          - text: Sending
+          - generic: 
+      - listitem [ref=e48]:
+        - link "Settings " [ref=e49] [cursor=pointer]:
+          - /url: /settings/authentication/
+          - text: Settings
+          - generic: 
+      - listitem [ref=e51]:
+        - link "Account " [ref=e52] [cursor=pointer]:
+          - /url: /account/
+          - text: Account
+          - generic: 
+      - listitem
+    - generic [ref=e55]:
+      - paragraph [ref=e59]:
+        - text: You need to verify one or more of your Verified Senders. See which of your sender email addresses are
+        - link "currently unverified" [ref=e60] [cursor=pointer]:
+          - /url: /reports/summary/?filter=sender_email&date_filter=30days
+        - text: .
+      - generic [ref=e61]:
+        - img [ref=e63]
+        - generic [ref=e66]:
+          - heading "Hmm, there appears to be a problem with your billing details." [level=3] [ref=e67]
+          - paragraph [ref=e68]: Your payment info has failed to process correctly. Please review and update your details as appropriate to ensure uninterrupted service.
+        - link "OK" [ref=e70] [cursor=pointer]:
+          - /url: ""
+      - generic [ref=e72]:  
+      - generic:
+        - generic:
+          - generic:
+            - banner:
+              - heading "Almost there! Complete your account setup 0% complete" [level=2]:
+                - text: Almost there! Complete your account setup
+                - generic: 0% complete
+              - button "Dismiss"
+            - generic:
+              - generic:
+                - generic:
+                  - generic: Verify your email address
+                - generic:
+                  - generic: Add a verified sender
+                - generic:
+                  - generic: Get an SMTP username or API key
+                - generic:
+                  - generic: Send your first email
+              - generic:
+                - generic:
+                  - generic:
+                    - generic:
+                      - heading "Verify your email address" [level=3]
+                      - paragraph: We want to make sure we’ve got your details right, so we’ve sent an email to your inbox.
+                      - paragraph: Click the link in the email to confirm your account.
+                    - generic:
+                      - heading "If you don’t receive an email:" [level=4]
+                      - list:
+                        - listitem: Check you typed your address in correctly
+                        - listitem: Look in your spam folder (just in case)
+                        - listitem:
+                          - link "Click here to resend the email":
+                            - /url: "#RESEND"
+                      - figure:
+                        - img "SMTP2GO"
+                - generic:
+                  - generic:
+                    - generic:
+                      - heading "Add a Verified Sender" [level=3]
+                      - paragraph: Head over to the ‘Verified Senders’ page to enter the verified sender you’d like to send emails with.
+                      - paragraph:
+                        - link "Add a verified sender":
+                          - /url: /sending/verified_senders/
+                    - generic:
+                      - heading "Adding a verified sender:" [level=4]
+                      - list:
+                        - listitem: Is required to send emails from the sender
+                        - listitem: Keeps your brand front and center
+                        - listitem: SPF and DKIM are handled automatically
+                      - figure:
+                        - img "SMTP2GO"
+                - generic:
+                  - generic:
+                    - generic:
+                      - heading "Get an SMTP username or API key" [level=3]
+                      - paragraph: Choose an SMTP username, or create an API key. You’ll then need to put these details into your email software or application.
+                      - paragraph:
+                        - link "Set up an SMTP username":
+                          - /url: /sending/smtp_users/
+                        - link "Create an API Key":
+                          - /url: /sending/apikeys/
+                    - generic:
+                      - heading "Need some help?" [level=4]
+                      - paragraph:
+                        - text: Follow these
+                        - link "setup instructions":
+                          - /url: https://www.smtp2go.com/setup/
+                        - text: to get you going.
+                      - figure:
+                        - img "SMTP2GO"
+                - generic:
+                  - generic:
+                    - generic:
+                      - heading "Send your first email" [level=3]
+                      - paragraph: Try sending an email using an email client or application you've configured to use SMTP2GO. We'll watch for it to make sure it's all working properly.
+                      - paragraph: If everything looks good, we'll go ahead and fully activate your account. Happy sending!
+                    - generic:
+                      - heading "Need some help?" [level=4]
+                      - paragraph:
+                        - text: Follow these
+                        - link "setup instructions":
+                          - /url: https://www.smtp2go.com/setup/
+                        - text: to get you going.
+                      - paragraph:
+                        - link "Terms of service":
+                          - /url: https://www.smtp2go.com/terms/
+                        - text: apply.
+                      - figure:
+                        - img "SMTP2GO"
+      - text: 
+      - generic:
+        - banner [ref=e75]:
+          - generic [ref=e76]:
+            - generic [ref=e77]:
+              - progressbar [ref=e78]
+              - paragraph [ref=e79]: 0/0
+              - generic:
+                - list:
+                  - listitem:
+                    - generic: "Master account:"
+                    - generic: "0"
+                  - listitem:
+                    - generic: "Subaccounts:"
+                    - generic: "0"
+            - paragraph
+            - text: 
+          - generic [ref=e81]:
+            - heading [level=3]
+            - paragraph [ref=e82]: Bounce Rate
+          - generic [ref=e84]:
+            - heading [level=3]
+            - paragraph [ref=e85]: Spam Rate
+        - generic [ref=e87]:
+          - generic [ref=e88]:
+            - generic [ref=e92]: Emails
+            - generic [ref=e96]: Bounces
+            - generic [ref=e100]: Spam
+          - generic [ref=e103]:
+            - generic [ref=e105]: 01/01/1970
+            - generic [ref=e106]:
+              - generic [ref=e107]: "0"
+              - generic [ref=e108]: "1"
+      - generic [ref=e111] [cursor=pointer]:
+        - link:
+          - /url: javascript:void(0);
+          - img [ref=e112]
+    - generic [ref=e114]:
+      - generic [ref=e115]:
+        - text: 2026 © SMTP2GO.
+        - generic [ref=e116]: Hosted in the USA
+        - link "Share feedback on this page" [ref=e117] [cursor=pointer]:
+          - /url: https://smtp2go-feedback.paperform.co?m=1010395&p=/dashboard/main/
+      - list [ref=e119]:
+        - listitem [ref=e120]:
+          - link "Compliance Documents" [ref=e121] [cursor=pointer]:
+            - /url: /compliance/
+        - listitem [ref=e122]:
+          - link "Privacy Policy" [ref=e123] [cursor=pointer]:
+            - /url: https://www.smtp2go.com/privacy
+        - listitem [ref=e124]:
+          - link "Terms of Service" [ref=e125] [cursor=pointer]:
+            - /url: https://www.smtp2go.com/terms
+        - listitem [ref=e126]:
+          - link "Status" [ref=e127] [cursor=pointer]:
+            - /url: https://smtp2gostatus.com
+  - iframe [ref=e128]:
+    - generic [ref=f37e2]:
+      - img [ref=f37e4]
+      - generic [ref=f37e11]:
+        - heading "Status embed installed correctly" [level=1] [ref=f37e12]:
+          - paragraph [ref=f37e13]: Status embed installed correctly
+        - generic [ref=f37e14]: This will be shown if an incident or maintenance is posted on your status page.
+        - link "View latest updates" [ref=f37e16] [cursor=pointer]:
+          - /url: https://smtp2gostatus.com?utm_source=embed
+      - button [ref=f37e18] [cursor=pointer]:
+        - img [ref=f37e19]
+  - generic:
+    - iframe

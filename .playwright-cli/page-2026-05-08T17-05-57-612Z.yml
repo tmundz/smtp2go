@@ -1,0 +1,13 @@
+- generic [active] [ref=e1]:
+  - link [ref=e3] [cursor=pointer]:
+    - /url: https://www.smtp2go.com/
+  - generic [ref=e5]:
+    - heading "Verify your log in" [level=1] [ref=e6]
+    - paragraph [ref=e7]: "Please enter the 6‑digit number provided by your authentication app:"
+    - textbox "Verification code" [ref=e9]
+    - button "Log in →" [ref=e11] [cursor=pointer]
+    - generic [ref=e12]: Don't ask again on this device
+  - paragraph [ref=e14]:
+    - link "Privacy policy" [ref=e15] [cursor=pointer]:
+      - /url: http://www.smtp2go.com/privacy
+    - text: 2026 © SMTP2GO.

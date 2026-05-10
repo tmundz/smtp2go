@@ -1,0 +1,190 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e2]:
+    - generic:
+      - link "logo" [ref=e4] [cursor=pointer]:
+        - /url: /dashboard/main/
+        - img "logo" [ref=e5]
+      - list [ref=e7]:
+        - listitem [ref=e8]:
+          - link "Subaccounts" [ref=e9] [cursor=pointer]:
+            - /url: "#"
+            - generic [ref=e11]: Subaccounts
+          - list:
+            - listitem:
+              - generic: "Switch to:"
+              - generic:
+                - list:
+                  - listitem:
+                    - link "testing":
+                      - /url: javascript:void(0)
+                      - text: testing
+            - listitem:
+              - link "Manage subaccounts":
+                - /url: /settings/subaccounts/
+        - listitem [ref=e12]:
+          - link "Support" [ref=e13] [cursor=pointer]:
+            - /url: "#"
+            - text: Support
+          - list:
+            - listitem: Customer support
+            - listitem:
+              - link "Support Desk":
+                - /url: /support-zdsso/
+            - listitem:
+              - link "Setup Guides":
+                - /url: https://www.smtp2go.com/setup/
+            - listitem:
+              - link "Contact Numbers":
+                - /url: https://www.smtp2go.com/contact/#contact-numbers
+            - listitem:
+              - button "Latest updates"
+            - listitem:
+              - generic:
+                - generic: Generate Support PIN
+                - text: Generating Support PIN..
+              - generic: "00000"
+            - listitem:
+              - generic: For account verification in customer support discussions.
+        - listitem [ref=e15]:
+          - link "roy kent" [ref=e16] [cursor=pointer]:
+            - /url: "#"
+            - generic [ref=e18]: roy kent
+          - list:
+            - listitem:
+              - generic: roy kent
+              - generic: 0xcaphe+roy@wearehackerone.com
+            - listitem:
+              - list:
+                - listitem:
+                  - link "Log Out":
+                    - /url: "#"
+                    - text: Log Out
+  - generic [ref=e19]:
+    - list [ref=e21]:
+      - listitem [ref=e22]:
+        - link "Dashboard" [ref=e23] [cursor=pointer]:
+          - /url: /dashboard/main/
+          - text: Dashboard
+      - listitem [ref=e25]:
+        - link "Reports " [ref=e26] [cursor=pointer]:
+          - /url: /reports/summary/
+          - text: Reports
+          - generic: 
+      - listitem [ref=e28]:
+        - link "Sending " [ref=e29] [cursor=pointer]:
+          - /url: /sending/
+          - text: Sending
+          - generic: 
+      - listitem [ref=e31]:
+        - link "Settings " [ref=e32] [cursor=pointer]:
+          - /url: /settings/authentication/
+          - text: Settings
+          - generic: 
+      - listitem [ref=e34]:
+        - link "Account " [ref=e35] [cursor=pointer]:
+          - /url: /account/
+          - text: Account
+          - generic: 
+        - list [ref=e37]:
+          - listitem [ref=e38]:
+            - link "Edit Team" [ref=e39] [cursor=pointer]:
+              - /url: /account/team/
+          - listitem [ref=e40]:
+            - link "Two-Factor Auth" [ref=e41] [cursor=pointer]:
+              - /url: /account/2fa/
+      - listitem
+    - generic [ref=e43]:
+      - paragraph [ref=e47]:
+        - text: You need to verify one or more of your Verified Senders. See which of your sender email addresses are
+        - link "currently unverified" [ref=e48] [cursor=pointer]:
+          - /url: /reports/summary/?filter=sender_email&date_filter=30days
+        - text: .
+      - generic [ref=e50]:   
+      - generic [ref=e81]:
+        - generic:
+          - generic:
+            - generic: ×
+          - generic:
+            - generic: ×
+        - generic:
+          - banner [ref=e82]:
+            - heading "Two-Factor Authentication" [level=3] [ref=e83]:
+              - button [ref=e84] [cursor=pointer]
+              - text: Two-Factor Authentication
+            - paragraph [ref=e86]: Increase the security of your account by enabling two-factor authentication (2FA). We'll ask you to verify yourself either by SMS or an authentication app when you login.
+          - paragraph [ref=e88]:
+            - generic [ref=e90]:
+              - text: Authentication is currently
+              - strong [ref=e91]: optional
+              - text: in your account.
+            - generic [ref=e92]: To turn on enforcement, you must firstly enable two-factor authentication for yourself.
+            - link "Learn more" [ref=e93] [cursor=pointer]:
+              - /url: https://support.smtp2go.com/hc/en-gb/articles/360012260594-Two-Factor-Authentication-2FA
+          - generic [ref=e95]:
+            - generic [ref=e96]:
+              - generic [ref=e97]:
+                - img [ref=e99]
+                - heading "SMS Authentication" [level=3] [ref=e102]
+              - paragraph [ref=e104]: Verify your phone number by setting up SMS authentication. We'll send you a text message when you log in.
+              - button "Set up" [ref=e108] [cursor=pointer]
+            - generic [ref=e109]:
+              - generic [ref=e110]:
+                - img [ref=e112]
+                - heading "App Authentication" [level=3] [ref=e116]
+              - paragraph [ref=e118]: Use an authentication app of your choice to login.
+              - button "Set up" [ref=e122] [cursor=pointer]
+        - generic:
+          - button "×"
+          - banner:
+            - heading "Exit without saving?" [level=4]
+          - generic:
+            - paragraph: Closing the editor without saving will remove all of your changes since the last save.
+          - generic:
+            - button "Continue editing"
+            - button "Exit without saving"
+        - generic:
+          - generic:
+            - button "×"
+            - banner:
+              - heading "Security check" [level=4]
+            - generic:
+              - textbox
+          - generic:
+            - button "Disable 2FA"
+            - button "Cancel"
+      - generic [ref=e63] [cursor=pointer]:
+        - link:
+          - /url: javascript:void(0);
+          - img [ref=e64]
+    - generic [ref=e66]:
+      - generic [ref=e67]:
+        - text: 2026 © SMTP2GO.
+        - generic [ref=e68]: Hosted in the USA
+        - link "Share feedback on this page" [ref=e69] [cursor=pointer]:
+          - /url: https://smtp2go-feedback.paperform.co?m=1010395&p=/account/2fa/
+      - list [ref=e71]:
+        - listitem [ref=e72]:
+          - link "Compliance Documents" [ref=e73] [cursor=pointer]:
+            - /url: /compliance/
+        - listitem [ref=e74]:
+          - link "Privacy Policy" [ref=e75] [cursor=pointer]:
+            - /url: https://www.smtp2go.com/privacy
+        - listitem [ref=e76]:
+          - link "Terms of Service" [ref=e77] [cursor=pointer]:
+            - /url: https://www.smtp2go.com/terms
+        - listitem [ref=e78]:
+          - link "Status" [ref=e79] [cursor=pointer]:
+            - /url: https://smtp2gostatus.com
+  - iframe [ref=e80]:
+    - generic [ref=f21e2]:
+      - img [ref=f21e4]
+      - generic [ref=f21e11]:
+        - heading "Status embed installed correctly" [level=1] [ref=f21e12]:
+          - paragraph [ref=f21e13]: Status embed installed correctly
+        - generic [ref=f21e14]: This will be shown if an incident or maintenance is posted on your status page.
+        - link "View latest updates" [ref=f21e16] [cursor=pointer]:
+          - /url: https://smtp2gostatus.com?utm_source=embed
+      - button [ref=f21e18] [cursor=pointer]:
+        - img [ref=f21e19]
+  - generic:
+    - iframe

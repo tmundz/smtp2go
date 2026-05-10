@@ -1,0 +1,7 @@
+- generic [active] [ref=e1]:
+  - link [ref=e3] [cursor=pointer]:
+    - /url: https://www.smtp2go.com/
+  - paragraph [ref=e4]:
+    - link "Privacy policy" [ref=e5] [cursor=pointer]:
+      - /url: http://www.smtp2go.com/privacy
+    - text: 2026 © SMTP2GO.

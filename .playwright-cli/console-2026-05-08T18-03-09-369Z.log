@@ -1,0 +1,5 @@
+[    1185ms] [WARNING] An iframe which has both allow-scripts and allow-same-origin for its sandbox attribute can escape its sandboxing. @ https://cdn.announcekit.app/widget-v2.js:0
+[   35146ms] [ERROR] Failed to load resource: the server responded with a status of 404 (NOT FOUND) @ https://app-us.smtp2go.com/api/v1/account/:0
+[   40264ms] [ERROR] Failed to load resource: the server responded with a status of 404 (NOT FOUND) @ https://app-us.smtp2go.com/api/users/me/:0
+[   45953ms] [ERROR] Failed to load resource: the server responded with a status of 404 (NOT FOUND) @ https://app-us.smtp2go.com/api/v1/account:0
+[   48288ms] [ERROR] Failed to load resource: the server responded with a status of 404 (NOT FOUND) @ https://app-us.smtp2go.com/account/api/v1/users/me:0

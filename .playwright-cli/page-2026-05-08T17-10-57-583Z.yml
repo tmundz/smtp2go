@@ -1,0 +1,3 @@
+- generic [active] [ref=e1]:
+  - heading "METHOD NOT ALLOWED" [level=1] [ref=e2]
+  - paragraph [ref=e3]: The requested method GET is not allowed for this URL.

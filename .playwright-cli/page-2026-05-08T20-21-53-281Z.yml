@@ -1,0 +1,20 @@
+- generic [active] [ref=e1]:
+  - link [ref=e3] [cursor=pointer]:
+    - /url: https://www.smtp2go.com/
+  - generic [ref=e4]:
+    - generic [ref=e5]:
+      - heading "Verify your log in" [level=1] [ref=e6]
+      - paragraph [ref=e7]:
+        - text: Enter the verification code sent to .
+        - text: This code is valid for 10 minutes.
+      - paragraph [ref=e8]: There was an issue sending the verification code. Please try again after sometime and if problems persist please contact our support team at ticket@smtp2go.com.
+      - textbox "Verification code" [ref=e10]
+      - button "Log in →" [ref=e12] [cursor=pointer]
+      - generic [ref=e13]: Don't ask again on this device
+    - paragraph [ref=e16]:
+      - link "Resend code" [ref=e17] [cursor=pointer]:
+        - /url: javascript:$('#resend-sms').submit();
+  - paragraph [ref=e18]:
+    - link "Privacy policy" [ref=e19] [cursor=pointer]:
+      - /url: http://www.smtp2go.com/privacy
+    - text: 2026 © SMTP2GO.

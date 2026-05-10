@@ -1,0 +1,8 @@
+- main [ref=e3]:
+  - generic [ref=e5]:
+    - img "SMTP2GO" [ref=e6]
+    - generic [ref=e7]: Error 404
+    - heading "The page you were looking for no longer exists." [level=1] [ref=e8]
+    - paragraph [ref=e9]: You may have mistyped the address or the page may have been moved...
+    - link "Take me to the Application homepage" [ref=e10] [cursor=pointer]:
+      - /url: https://app.smtp2go.com/

@@ -1,0 +1,261 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e2]:
+    - generic:
+      - link "logo" [ref=e4] [cursor=pointer]:
+        - /url: /dashboard/main/
+        - img "logo" [ref=e5]
+      - list [ref=e7]:
+        - listitem [ref=e8]:
+          - link "Support" [ref=e9] [cursor=pointer]:
+            - /url: "#"
+            - text: Support
+          - list:
+            - listitem: Customer support
+            - listitem:
+              - link "Support Desk":
+                - /url: /support-zdsso/
+            - listitem:
+              - link "Setup Guides":
+                - /url: https://www.smtp2go.com/setup/
+            - listitem:
+              - link "Contact Numbers":
+                - /url: https://www.smtp2go.com/contact/#contact-numbers
+            - listitem:
+              - button "Latest updates"
+            - listitem:
+              - generic:
+                - generic: Generate Support PIN
+                - text: Generating Support PIN..
+              - generic: "00000"
+            - listitem:
+              - generic: For account verification in customer support discussions.
+        - listitem [ref=e11]:
+          - link "ted lasso" [ref=e12] [cursor=pointer]:
+            - /url: "#"
+            - generic [ref=e14]: ted lasso
+          - list:
+            - listitem:
+              - generic: ted lasso
+              - generic: 0xcaphe+ted@wearehackerone.com
+            - listitem:
+              - list:
+                - listitem:
+                  - link "Log Out":
+                    - /url: "#"
+                    - text: Log Out
+  - generic [ref=e15]:
+    - list [ref=e17]:
+      - listitem [ref=e18]:
+        - link "Dashboard" [ref=e19] [cursor=pointer]:
+          - /url: /dashboard/main/
+          - text: Dashboard
+      - listitem [ref=e21]:
+        - link "Reports " [ref=e22] [cursor=pointer]:
+          - /url: /reports/summary/
+          - text: Reports
+          - generic: 
+        - list [ref=e24]:
+          - listitem [ref=e25]:
+            - link "Summary" [ref=e26] [cursor=pointer]:
+              - /url: /reports/summary/
+          - listitem [ref=e27]:
+            - link "Activity" [ref=e28] [cursor=pointer]:
+              - /url: /reports/activity/
+          - listitem [ref=e29]:
+            - link "Charts" [ref=e30] [cursor=pointer]:
+              - /url: /reports/charts/
+          - listitem [ref=e31]:
+            - link "Archives" [ref=e32] [cursor=pointer]:
+              - /url: /reports/archive/
+          - listitem [ref=e33]:
+            - link "Email Testing" [ref=e34] [cursor=pointer]:
+              - /url: /email-testing/
+          - listitem [ref=e35]:
+            - link "Suppressions" [ref=e36] [cursor=pointer]:
+              - /url: /reports/suppressions/
+          - listitem [ref=e37]:
+            - link "Data Exports" [ref=e38] [cursor=pointer]:
+              - /url: /reports/data-exports/
+          - listitem [ref=e39]:
+            - link "SMS Messaging" [ref=e40] [cursor=pointer]:
+              - /url: /reports/sms/
+      - listitem [ref=e41]:
+        - link "Sending " [ref=e42] [cursor=pointer]:
+          - /url: /sending/
+          - text: Sending
+          - generic: 
+      - listitem [ref=e44]:
+        - link "Settings " [ref=e45] [cursor=pointer]:
+          - /url: /settings/authentication/
+          - text: Settings
+          - generic: 
+      - listitem [ref=e47]:
+        - link "Account " [ref=e48] [cursor=pointer]:
+          - /url: /account/
+          - text: Account
+          - generic: 
+      - listitem
+    - generic [ref=e51]:
+      - paragraph [ref=e55]:
+        - text: Before you can send emails, you'll need to add a
+        - link "Verified Sender" [ref=e56] [cursor=pointer]:
+          - /url: /sending/verified_senders/
+        - text: to your account.
+      - generic [ref=e57]:
+        - img [ref=e59]
+        - generic [ref=e62]:
+          - heading "Hmm, there appears to be a problem with your billing details." [level=3] [ref=e63]
+          - paragraph [ref=e64]: Your payment info has failed to process correctly. Please review and update your details as appropriate to ensure uninterrupted service.
+        - link "OK" [ref=e66] [cursor=pointer]:
+          - /url: ""
+      - generic [ref=e68]:  
+      - generic:
+        - generic:
+          - generic:
+            - banner:
+              - heading "Almost there! Complete your account setup 0% complete" [level=2]:
+                - text: Almost there! Complete your account setup
+                - generic: 0% complete
+              - button "Dismiss"
+            - generic:
+              - generic:
+                - generic:
+                  - generic: Verify your email address
+                - generic:
+                  - generic: Add a verified sender
+                - generic:
+                  - generic: Get an SMTP username or API key
+                - generic:
+                  - generic: Send your first email
+              - generic:
+                - generic:
+                  - generic:
+                    - generic:
+                      - heading "Verify your email address" [level=3]
+                      - paragraph: We want to make sure we’ve got your details right, so we’ve sent an email to your inbox.
+                      - paragraph: Click the link in the email to confirm your account.
+                    - generic:
+                      - heading "If you don’t receive an email:" [level=4]
+                      - list:
+                        - listitem: Check you typed your address in correctly
+                        - listitem: Look in your spam folder (just in case)
+                        - listitem:
+                          - link "Click here to resend the email":
+                            - /url: "#RESEND"
+                      - figure:
+                        - img "SMTP2GO"
+                - generic:
+                  - generic:
+                    - generic:
+                      - heading "Add a Verified Sender" [level=3]
+                      - paragraph: Head over to the ‘Verified Senders’ page to enter the verified sender you’d like to send emails with.
+                      - paragraph:
+                        - link "Add a verified sender":
+                          - /url: /sending/verified_senders/
+                    - generic:
+                      - heading "Adding a verified sender:" [level=4]
+                      - list:
+                        - listitem: Is required to send emails from the sender
+                        - listitem: Keeps your brand front and center
+                        - listitem: SPF and DKIM are handled automatically
+                      - figure:
+                        - img "SMTP2GO"
+                - generic:
+                  - generic:
+                    - generic:
+                      - heading "Get an SMTP username or API key" [level=3]
+                      - paragraph: Choose an SMTP username, or create an API key. You’ll then need to put these details into your email software or application.
+                      - paragraph:
+                        - link "Set up an SMTP username":
+                          - /url: /sending/smtp_users/
+                        - link "Create an API Key":
+                          - /url: /sending/apikeys/
+                    - generic:
+                      - heading "Need some help?" [level=4]
+                      - paragraph:
+                        - text: Follow these
+                        - link "setup instructions":
+                          - /url: https://www.smtp2go.com/setup/
+                        - text: to get you going.
+                      - figure:
+                        - img "SMTP2GO"
+                - generic:
+                  - generic:
+                    - generic:
+                      - heading "Send your first email" [level=3]
+                      - paragraph: Try sending an email using an email client or application you've configured to use SMTP2GO. We'll watch for it to make sure it's all working properly.
+                      - paragraph: If everything looks good, we'll go ahead and fully activate your account. Happy sending!
+                    - generic:
+                      - heading "Need some help?" [level=4]
+                      - paragraph:
+                        - text: Follow these
+                        - link "setup instructions":
+                          - /url: https://www.smtp2go.com/setup/
+                        - text: to get you going.
+                      - paragraph:
+                        - link "Terms of service":
+                          - /url: https://www.smtp2go.com/terms/
+                        - text: apply.
+                      - figure:
+                        - img "SMTP2GO"
+      - text: 
+      - generic:
+        - banner [ref=e71]:
+          - generic [ref=e72]:
+            - generic [ref=e73]:
+              - progressbar [ref=e74]
+              - paragraph [ref=e75]: 0/0
+            - paragraph
+            - text: 
+          - generic [ref=e77]:
+            - heading [level=3]
+            - paragraph [ref=e78]: Bounce Rate
+          - generic [ref=e80]:
+            - heading [level=3]
+            - paragraph [ref=e81]: Spam Rate
+        - generic [ref=e83]:
+          - generic [ref=e84]:
+            - generic [ref=e88]: Emails
+            - generic [ref=e92]: Bounces
+            - generic [ref=e96]: Spam
+          - generic [ref=e99]:
+            - generic [ref=e101]: 01/01/1970
+            - generic [ref=e102]:
+              - generic [ref=e103]: "0"
+              - generic [ref=e104]: "1"
+      - generic [ref=e107] [cursor=pointer]:
+        - link:
+          - /url: javascript:void(0);
+          - img [ref=e108]
+    - generic [ref=e110]:
+      - generic [ref=e111]:
+        - text: 2026 © SMTP2GO.
+        - generic [ref=e112]: Hosted in the USA
+        - link "Share feedback on this page" [ref=e113] [cursor=pointer]:
+          - /url: https://smtp2go-feedback.paperform.co?m=1015003&p=/dashboard/main/
+      - list [ref=e115]:
+        - listitem [ref=e116]:
+          - link "Compliance Documents" [ref=e117] [cursor=pointer]:
+            - /url: /compliance/
+        - listitem [ref=e118]:
+          - link "Privacy Policy" [ref=e119] [cursor=pointer]:
+            - /url: https://www.smtp2go.com/privacy
+        - listitem [ref=e120]:
+          - link "Terms of Service" [ref=e121] [cursor=pointer]:
+            - /url: https://www.smtp2go.com/terms
+        - listitem [ref=e122]:
+          - link "Status" [ref=e123] [cursor=pointer]:
+            - /url: https://smtp2gostatus.com
+  - iframe [ref=e124]:
+    - generic [ref=f1e2]:
+      - img [ref=f1e4]
+      - generic [ref=f1e11]:
+        - heading "Status embed installed correctly" [level=1] [ref=f1e12]:
+          - paragraph [ref=f1e13]: Status embed installed correctly
+        - generic [ref=f1e14]: This will be shown if an incident or maintenance is posted on your status page.
+        - link "View latest updates" [ref=f1e16] [cursor=pointer]:
+          - /url: https://smtp2gostatus.com?utm_source=embed
+      - button [ref=f1e18] [cursor=pointer]:
+        - img [ref=f1e19]
+  - generic:
+    - iframe
